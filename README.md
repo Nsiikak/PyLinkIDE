@@ -63,8 +63,6 @@
 ## 🎥 **Demo**
 Here's a quick demo showcasing the user interface and how PyLinkIDE functions:
 
-![Demo Screenshot]
-
 > *This screenshot shows the IDE compiling and executing a Python script for calculating the average number of steps.*
 
 ---
