@@ -69,7 +69,7 @@ To make the README more aesthetic, we can focus on formatting, adding sections f
 ## 🎥 **Demo**
 Here's a quick demo showcasing the user interface and how PyLinkIDE functions:
 
-![Demo Screenshot](demo_screenshot.png)
+![Demo Screenshot]
 
 > *This screenshot shows the IDE compiling and executing a Python script for calculating the average number of steps.*
 
@@ -85,7 +85,3 @@ Contributions are welcome! Follow these steps to contribute:
 
 ## 📄 **License**
 This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more details.
-
----
-
-With these changes, the README is now more aesthetically appealing and user-friendly, with icons, badges, and structured formatting. Let me know if you'd like further customization!
