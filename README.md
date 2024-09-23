@@ -1,7 +1,3 @@
-To make the README more aesthetic, we can focus on formatting, adding sections for better readability, and including design elements like badges and improved headers. Here's an updated version with a more polished and visual layout:
-
----
-
 # 🌟 **PyLinkIDE**  
 *Seamless Python Development on Ubuntu with a Custom Compiler & Linker*
 
