@@ -1,0 +1,380 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> expression
+Rule 1     expression -> ID LPARENTHESIS args RPARENTHESIS
+Rule 2     expression -> expression PLUS term
+Rule 3     expression -> expression MINUS term
+Rule 4     expression -> term
+Rule 5     expression -> KEYWORD
+Rule 6     args -> expression
+Rule 7     args -> args COMMA expression
+Rule 8     term -> term TIMES factor
+Rule 9     term -> term DIVIDE factor
+Rule 10    term -> factor
+Rule 11    factor -> NUMBER
+Rule 12    factor -> LPARENTHESIS expression RPARENTHESIS
+
+Terminals, with rules where they appear
+
+COMMA                : 7
+DIVIDE               : 9
+ID                   : 1
+KEYWORD              : 5
+LPARENTHESIS         : 1 12
+MINUS                : 3
+NUMBER               : 11
+PLUS                 : 2
+RPARENTHESIS         : 1 12
+TIMES                : 8
+error                : 
+
+Nonterminals, with rules where they appear
+
+args                 : 1 7
+expression           : 2 3 6 7 12 0
+factor               : 8 9 10
+term                 : 2 3 4 8 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . expression
+    (1) expression -> . ID LPARENTHESIS args RPARENTHESIS
+    (2) expression -> . expression PLUS term
+    (3) expression -> . expression MINUS term
+    (4) expression -> . term
+    (5) expression -> . KEYWORD
+    (8) term -> . term TIMES factor
+    (9) term -> . term DIVIDE factor
+    (10) term -> . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    ID              shift and go to state 2
+    KEYWORD         shift and go to state 5
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    expression                     shift and go to state 1
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
+
+state 1
+
+    (0) S' -> expression .
+    (2) expression -> expression . PLUS term
+    (3) expression -> expression . MINUS term
+
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
+
+state 2
+
+    (1) expression -> ID . LPARENTHESIS args RPARENTHESIS
+
+    LPARENTHESIS    shift and go to state 10
+
+
+state 3
+
+    (12) factor -> LPARENTHESIS . expression RPARENTHESIS
+    (1) expression -> . ID LPARENTHESIS args RPARENTHESIS
+    (2) expression -> . expression PLUS term
+    (3) expression -> . expression MINUS term
+    (4) expression -> . term
+    (5) expression -> . KEYWORD
+    (8) term -> . term TIMES factor
+    (9) term -> . term DIVIDE factor
+    (10) term -> . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    ID              shift and go to state 2
+    KEYWORD         shift and go to state 5
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    expression                     shift and go to state 11
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
+
+state 4
+
+    (4) expression -> term .
+    (8) term -> term . TIMES factor
+    (9) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 4 (expression -> term .)
+    MINUS           reduce using rule 4 (expression -> term .)
+    $end            reduce using rule 4 (expression -> term .)
+    RPARENTHESIS    reduce using rule 4 (expression -> term .)
+    COMMA           reduce using rule 4 (expression -> term .)
+    TIMES           shift and go to state 12
+    DIVIDE          shift and go to state 13
+
+
+state 5
+
+    (5) expression -> KEYWORD .
+
+    PLUS            reduce using rule 5 (expression -> KEYWORD .)
+    MINUS           reduce using rule 5 (expression -> KEYWORD .)
+    $end            reduce using rule 5 (expression -> KEYWORD .)
+    RPARENTHESIS    reduce using rule 5 (expression -> KEYWORD .)
+    COMMA           reduce using rule 5 (expression -> KEYWORD .)
+
+
+state 6
+
+    (10) term -> factor .
+
+    TIMES           reduce using rule 10 (term -> factor .)
+    DIVIDE          reduce using rule 10 (term -> factor .)
+    PLUS            reduce using rule 10 (term -> factor .)
+    MINUS           reduce using rule 10 (term -> factor .)
+    $end            reduce using rule 10 (term -> factor .)
+    RPARENTHESIS    reduce using rule 10 (term -> factor .)
+    COMMA           reduce using rule 10 (term -> factor .)
+
+
+state 7
+
+    (11) factor -> NUMBER .
+
+    TIMES           reduce using rule 11 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 11 (factor -> NUMBER .)
+    PLUS            reduce using rule 11 (factor -> NUMBER .)
+    MINUS           reduce using rule 11 (factor -> NUMBER .)
+    $end            reduce using rule 11 (factor -> NUMBER .)
+    RPARENTHESIS    reduce using rule 11 (factor -> NUMBER .)
+    COMMA           reduce using rule 11 (factor -> NUMBER .)
+
+
+state 8
+
+    (2) expression -> expression PLUS . term
+    (8) term -> . term TIMES factor
+    (9) term -> . term DIVIDE factor
+    (10) term -> . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    term                           shift and go to state 14
+    factor                         shift and go to state 6
+
+state 9
+
+    (3) expression -> expression MINUS . term
+    (8) term -> . term TIMES factor
+    (9) term -> . term DIVIDE factor
+    (10) term -> . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    term                           shift and go to state 15
+    factor                         shift and go to state 6
+
+state 10
+
+    (1) expression -> ID LPARENTHESIS . args RPARENTHESIS
+    (6) args -> . expression
+    (7) args -> . args COMMA expression
+    (1) expression -> . ID LPARENTHESIS args RPARENTHESIS
+    (2) expression -> . expression PLUS term
+    (3) expression -> . expression MINUS term
+    (4) expression -> . term
+    (5) expression -> . KEYWORD
+    (8) term -> . term TIMES factor
+    (9) term -> . term DIVIDE factor
+    (10) term -> . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    ID              shift and go to state 2
+    KEYWORD         shift and go to state 5
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    args                           shift and go to state 16
+    expression                     shift and go to state 17
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
+
+state 11
+
+    (12) factor -> LPARENTHESIS expression . RPARENTHESIS
+    (2) expression -> expression . PLUS term
+    (3) expression -> expression . MINUS term
+
+    RPARENTHESIS    shift and go to state 18
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
+
+state 12
+
+    (8) term -> term TIMES . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    factor                         shift and go to state 19
+
+state 13
+
+    (9) term -> term DIVIDE . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    factor                         shift and go to state 20
+
+state 14
+
+    (2) expression -> expression PLUS term .
+    (8) term -> term . TIMES factor
+    (9) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 2 (expression -> expression PLUS term .)
+    MINUS           reduce using rule 2 (expression -> expression PLUS term .)
+    $end            reduce using rule 2 (expression -> expression PLUS term .)
+    RPARENTHESIS    reduce using rule 2 (expression -> expression PLUS term .)
+    COMMA           reduce using rule 2 (expression -> expression PLUS term .)
+    TIMES           shift and go to state 12
+    DIVIDE          shift and go to state 13
+
+
+state 15
+
+    (3) expression -> expression MINUS term .
+    (8) term -> term . TIMES factor
+    (9) term -> term . DIVIDE factor
+
+    PLUS            reduce using rule 3 (expression -> expression MINUS term .)
+    MINUS           reduce using rule 3 (expression -> expression MINUS term .)
+    $end            reduce using rule 3 (expression -> expression MINUS term .)
+    RPARENTHESIS    reduce using rule 3 (expression -> expression MINUS term .)
+    COMMA           reduce using rule 3 (expression -> expression MINUS term .)
+    TIMES           shift and go to state 12
+    DIVIDE          shift and go to state 13
+
+
+state 16
+
+    (1) expression -> ID LPARENTHESIS args . RPARENTHESIS
+    (7) args -> args . COMMA expression
+
+    RPARENTHESIS    shift and go to state 21
+    COMMA           shift and go to state 22
+
+
+state 17
+
+    (6) args -> expression .
+    (2) expression -> expression . PLUS term
+    (3) expression -> expression . MINUS term
+
+    RPARENTHESIS    reduce using rule 6 (args -> expression .)
+    COMMA           reduce using rule 6 (args -> expression .)
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
+
+state 18
+
+    (12) factor -> LPARENTHESIS expression RPARENTHESIS .
+
+    TIMES           reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+    DIVIDE          reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+    PLUS            reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+    MINUS           reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+    $end            reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+    RPARENTHESIS    reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+    COMMA           reduce using rule 12 (factor -> LPARENTHESIS expression RPARENTHESIS .)
+
+
+state 19
+
+    (8) term -> term TIMES factor .
+
+    TIMES           reduce using rule 8 (term -> term TIMES factor .)
+    DIVIDE          reduce using rule 8 (term -> term TIMES factor .)
+    PLUS            reduce using rule 8 (term -> term TIMES factor .)
+    MINUS           reduce using rule 8 (term -> term TIMES factor .)
+    $end            reduce using rule 8 (term -> term TIMES factor .)
+    RPARENTHESIS    reduce using rule 8 (term -> term TIMES factor .)
+    COMMA           reduce using rule 8 (term -> term TIMES factor .)
+
+
+state 20
+
+    (9) term -> term DIVIDE factor .
+
+    TIMES           reduce using rule 9 (term -> term DIVIDE factor .)
+    DIVIDE          reduce using rule 9 (term -> term DIVIDE factor .)
+    PLUS            reduce using rule 9 (term -> term DIVIDE factor .)
+    MINUS           reduce using rule 9 (term -> term DIVIDE factor .)
+    $end            reduce using rule 9 (term -> term DIVIDE factor .)
+    RPARENTHESIS    reduce using rule 9 (term -> term DIVIDE factor .)
+    COMMA           reduce using rule 9 (term -> term DIVIDE factor .)
+
+
+state 21
+
+    (1) expression -> ID LPARENTHESIS args RPARENTHESIS .
+
+    PLUS            reduce using rule 1 (expression -> ID LPARENTHESIS args RPARENTHESIS .)
+    MINUS           reduce using rule 1 (expression -> ID LPARENTHESIS args RPARENTHESIS .)
+    $end            reduce using rule 1 (expression -> ID LPARENTHESIS args RPARENTHESIS .)
+    RPARENTHESIS    reduce using rule 1 (expression -> ID LPARENTHESIS args RPARENTHESIS .)
+    COMMA           reduce using rule 1 (expression -> ID LPARENTHESIS args RPARENTHESIS .)
+
+
+state 22
+
+    (7) args -> args COMMA . expression
+    (1) expression -> . ID LPARENTHESIS args RPARENTHESIS
+    (2) expression -> . expression PLUS term
+    (3) expression -> . expression MINUS term
+    (4) expression -> . term
+    (5) expression -> . KEYWORD
+    (8) term -> . term TIMES factor
+    (9) term -> . term DIVIDE factor
+    (10) term -> . factor
+    (11) factor -> . NUMBER
+    (12) factor -> . LPARENTHESIS expression RPARENTHESIS
+
+    ID              shift and go to state 2
+    KEYWORD         shift and go to state 5
+    NUMBER          shift and go to state 7
+    LPARENTHESIS    shift and go to state 3
+
+    expression                     shift and go to state 23
+    term                           shift and go to state 4
+    factor                         shift and go to state 6
+
+state 23
+
+    (7) args -> args COMMA expression .
+    (2) expression -> expression . PLUS term
+    (3) expression -> expression . MINUS term
+
+    RPARENTHESIS    reduce using rule 7 (args -> args COMMA expression .)
+    COMMA           reduce using rule 7 (args -> args COMMA expression .)
+    PLUS            shift and go to state 8
+    MINUS           shift and go to state 9
+
