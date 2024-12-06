@@ -1,72 +1,27 @@
-import subprocess
-import os
-from tkinter import *
-from tkinter.filedialog import asksaveasfilename, askopenfilename
+#Importing the lexer needed for lexical analysis
+from lexer import *
+#Importing the parser for parsing the tokenized source code
+from parser_1 import *
+#Importing the interpreter used to Interprete the AST and execute the corresponding actions
+from Interpreter import *
+#Imports the sys module, which provides access to some variables maintained by the Python interpreter and to functions that interact with the interpreter.
+import sys
 
-# Function to set file path
-file_path = ""
+#Entry point for the script
+def main():
+    #Retrieving the source code file from the command line arguments
+    source = sys.argv[1]
+    #Creating a new instance of the lexer class and passing the source code as an argument
+    new_lexer = Lexer(source)
+    #Obtaining a list of tokens from the lexer after lexical analysis
+    tokens = new_lexer.getTokens()
+    #Craeting a new instance of the parser class and passing the tokens gotten from the lexer as an argument
+    new_parser = Parser(tokens)
+    #Obtaining a list of ASTs from the parsing process
+    asts = new_parser.runParse()
+    #Creating a new instance of the interpreter class and passing the list of ASTs as an argument
+    new_interpreter = Interpreter(asts)
+    #Interpreting and executing the actions specified by the ASTs
+    new_interpreter.execute()
 
-def set_file_path(path):
-    global file_path
-    file_path = path
-
-# Function to open a file
-def open_file():
-    path = askopenfilename(filetypes=[('Python Files', '*.py')])
-    if path:
-        with open(path, 'r') as file:
-            code = file.read()
-            editor.delete('1.0', END)
-            editor.insert('1.0', code)
-            set_file_path(path)
-
-# Function to save file
-def save_file():
-    if file_path == '':
-        path = asksaveasfilename(filetypes=[('Python Files', '*.py')])
-        if path:
-            set_file_path(path)
-    else:
-        path = file_path
-    with open(path, 'w') as file:
-        code = editor.get('1.0', END)
-        file.write(code)
-
-# Function to run code
-def run_code():
-    if file_path == '':
-        save_prompt = Toplevel()
-        Label(save_prompt, text="Please save your code before running").pack()
-        return
-    command = f"python3 {file_path}"
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-    output, error = process.communicate()
-    output_field.delete('1.0', END)
-    output_field.insert('1.0', output.decode())
-    output_field.insert('1.0', error.decode())
-
-# Tkinter GUI setup
-compiler = Tk()
-compiler.title('Python IDE')
-compiler.geometry('700x500')
-
-menu_bar = Menu(compiler)
-file_menu = Menu(menu_bar, tearoff=0)
-file_menu.add_command(label='Open', command=open_file)
-file_menu.add_command(label='Save', command=save_file)
-file_menu.add_command(label='Exit', command=exit)
-menu_bar.add_cascade(label='File', menu=file_menu)
-
-run_menu = Menu(menu_bar, tearoff=0)
-run_menu.add_command(label='Run', command=run_code)
-menu_bar.add_cascade(label='Run', menu=run_menu)
-
-compiler.config(menu=menu_bar)
-
-editor = Text(compiler, wrap='word')
-editor.pack(fill=BOTH, expand=1)
-
-output_field = Text(height=10)
-output_field.pack()
-
-compiler.mainloop()
+main()
