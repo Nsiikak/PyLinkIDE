@@ -163,3 +163,31 @@ class Print:
 
     def read(self, obj):
          print(self.value.read(obj))
+# A class used to represent a function call in the AST
+class FunctionCall:
+    def __init__(self, function_name, arguments):
+        self.function_name = function_name  # The name of the function being called
+        self.arguments = arguments  # List of argument expressions
+
+    def __repr__(self):
+        return f"FunctionCall({self.function_name}, {self.arguments})"
+
+    def read(self, obj):
+        # Placeholder for executing function calls
+        func = obj.storage.get(self.function_name)
+        if func is None:
+            raise Exception(f"Semantic Error: Function '{self.function_name}' is not defined.")
+        return func(*[arg.read(obj) for arg in self.arguments])
+
+
+# A class used to represent a block of code in the AST
+class Block:
+    def __init__(self, statements):
+        self.statements = statements  # List of statements in the block
+
+    def __repr__(self):
+        return f"Block({self.statements})"
+
+    def read(self, obj):
+        for statement in self.statements:
+            statement.read(obj)  # Execute each statement in the block
